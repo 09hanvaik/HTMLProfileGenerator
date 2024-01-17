@@ -60,12 +60,12 @@ async function promptEngineer() {
         name: "id",
       },
       {
-        type: "inpu",
+        type: "input",
         message: "Please enter the engineer's email:",
         name: "email",
       },
       {
-        type: "inpu",
+        type: "input",
         message: "Please enter the engineer's GitHub username:",
         name: "github",
       },
