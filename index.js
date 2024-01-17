@@ -45,3 +45,34 @@ async function promptManager() {
 
   await promptTeam();
 }
+
+// Function to prompt for adding an engineer
+async function promptEngineer() {
+    const engineerData = await inquirer.prompt([
+      {
+        type: "input",
+        message: "Please enter the engineer's name:",
+        name: "name",
+      },
+      {
+        type: "input",
+        message: "Please enter the engineer's Id:",
+        name: "id",
+      },
+      {
+        type: "inpu",
+        message: "Please enter the engineer's email:",
+        name: "email",
+      },
+      {
+        type: "inpu",
+        message: "Please enter the engineer's GitHub username:",
+        name: "github",
+      },
+    ]);
+  
+    const engineer = new Engineer(engineerData.name, engineerData.id, engineerData.email, engineerData.github);
+    teamMembers.push(engineer);
+  
+    await promptTeam();
+  }
