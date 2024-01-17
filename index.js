@@ -10,6 +10,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./src/page-template.js");
 
+const teamMembers = [];
 
 // Constants for different operations
 const operations = ["Add an engineer", "Add an intern", "Finish building the team"];
