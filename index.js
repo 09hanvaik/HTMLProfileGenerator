@@ -76,3 +76,73 @@ async function promptEngineer() {
   
     await promptTeam();
   }
+
+  // Function to prompt for adding an intern
+async function promptIntern() {
+    const internData = await inquirer.prompt([
+      {
+        type: "input",
+        message: "Please enter the intern's name:",
+        name: "name",
+      },
+      {
+        type: "input",
+        message: "Please enter the intern's Id:",
+        name: "id",
+      },
+      {
+        type: "input",
+        message: "Please enter the intern's email:",
+        name: "email",
+      },
+      {
+        type: "input",
+        message: "Please enter the intern's school:",
+        name: "school",
+      },
+    ]);
+  
+    const intern = new Intern(internData.name, internData.id, internData.email, internData.school);
+    teamMembers.push(intern);
+  
+    await promptTeam();
+  }
+
+  // Function to prompt for team-related operations
+async function promptTeam() {
+    const teamChoice = await inquirer.prompt([
+      {
+        type: "list",
+        message: "What do you want to do next?",
+        name: "teamChoice",
+        choices: operations,
+      },
+    ]);
+  
+    if (teamChoice.teamChoice === "Add an engineer") {
+      await promptEngineer();
+    } else if (teamChoice.teamChoice === "Add an intern") {
+      await promptIntern();
+    } else if (teamChoice.teamChoice === "Finish building the team") {
+      generateHTML();
+    }
+  }
+  
+  // Function to generate HTML file
+  function generateHTML() {
+    if (!fs.existsSync(OUTPUT_DIR)) {
+      fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+    }
+  
+    const htmlContent = render(teamMembers);
+    fs.writeFileSync(outputPath, htmlContent);
+    console.log(`HTML file generated at: ${outputPath}`);
+  }
+  
+  // Initial function to kick off the process
+  async function init() {
+    await promptManager();
+  }
+  
+  // Start the initialization process
+  init();
